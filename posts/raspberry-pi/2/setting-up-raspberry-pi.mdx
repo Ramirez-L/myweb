@@ -1,0 +1,126 @@
+---
+title: Setting up our Rasberry Pi
+date: 2023-10-04
+description: How easily boots our Rasberry Pi to start with the delevopment of our Webiste
+---
+
+<ImageComponent src="/raspberry-pi/2/cover.jpg" />
+
+### Hola querido lector;
+
+Aqui hablaremos sobre un tema sencillo donde haremos los pasos para configurar nuestro proyecto, entre estos pasos estan:
+
+- Descargar el programa oficial de la Fundación Rasberry para crear la imagen.
+- Hacer el boot desde un USB, debido a la mayor velocidad que se puede conseguir en lectura y escritura con respecto a la SimCard.
+- Iniciar sesión por medio de SSH si no contamos con un monitor y teclado.
+- Actualizar paquetes.
+- Escribir algunos comandos para probar
+
+Vamos con los primeros pasos...
+
+## Crear Imagen de Linux
+
+Nuestro primer paso será descargar el programa **<a href="https://www.raspberrypi.com/software/" target="_blank">Raspberry Pi Imager</a>** y
+selecionar la opción de acuerdo al sistema operativo, en mi caso uso **Windows**.
+
+<ImageComponent src="/raspberry-pi/2/1-Imager.png" />
+
+Una vez haya sido descargado, seguir los pasos de instalación y veremos una ventana como la siguiente:
+
+<ImageComponent src="/raspberry-pi/2/2-1-imager.png" />
+
+A partir de aqui casi que el programa te va guiando para seleccionar el sistema operativo a instalar, luego el lugar donde será creado el **Boot**,
+que puede ser una Simcard o un USB.
+
+#### Selecionar Imagen
+
+- **>>** Hacer click en **CHOOSE OS**
+- **>>** Click en la opción de **Other general-purpose OS**
+- **>>** Click en **Ubuntu** para ver las opciones compatibles con nuestra Raspberry Pi
+- **>>** Click en la imagen de **Ubuntu Server 23.04\(64\-bit\)**, esto debido a que luego haremos el incio de sesión por medio de SSH
+
+<ImageComponent src="/raspberry-pi/2/2-2-imager.png" />
+
+#### Configuraciones de instalación
+
+Luego de haber seleccionado la imagen, y el lugar de almacenamiento \(Yo he usado un USB 3.0\) aparece en la esquina inferior derecha un **engranaje** que
+debemos hacer click para agregar configuraciones de Red \(Conectarse a Wifi y definir nombre de usuario y contraseña\)
+
+<ImageComponent src="/raspberry-pi/2/2-3-imager.png" />
+
+Para mantener las cosas simples hay 4 opciones que deben estar marcadas:
+
+1.  #### Enable SSH
+
+    > Esto nos permitirá acceder luego a traves de una terminal en nuestra PC/Laptop. Solo dejar la opción de **Use password authentication**.
+
+2.  #### Set username and password
+
+    > Definir un nombre de usuario y contraseña.
+
+3.  #### Configure wireless LAN
+
+    > Escribir el nombre de la red, contraseña y seleccionar la región de la red \(País donde esta ubicado el modem de la casa\).
+
+    - SSID: \[nombre de la red\]
+    - Password:
+    - Wireless LAN country: \[desplegable con las opciones de los paises\]
+
+4.  #### Set locale settings
+
+    > Importante para la zona horaria del sistema operativo y el teclado que vayamos a usar
+
+    - Time zone: \[Region horaria\]
+    - Keyboard layout: \[El tipo de teclado como en mi caso que es Español - es\]
+
+Finalmente hacer click en **Save** y el esperado momento de hacer click en la última opción de **Write**.
+
+Desde aquí solo es esperar a que se descargue la imagen y se instale en nuestro destino.
+
+## Prender motores
+
+Ya que tenemos nuestra USB con el sistema operativo instalado, lo colocamos en cualquiera de las dos entradas de USB 3.0 \(Son las de color azul en el
+Raspberry Pi\). Conectamos nuestra fuente y esperar a que la luz verde se mantenga encendida y parpadeando.
+
+Aquí debemos esperar 1 minuto aproximadamente para que el primer arranque sea completado y se conecte a la red Wifi, que es lo que necesitamos para
+iniciar sesión a traves de **SSH** \(...recuerdan ese pago en las configuraciones... ?\)
+
+Ahora desde nuestra computadora, pueden abrir la consola de comandos **CMD**, **Powershell**, etc. O como en mi caso que uso
+**<a href="https://apps.microsoft.com/detail/windows-terminal/9N0DX20HK701" target="_blank">Windows Terminal</a>** y escribir el siguiente comando:
+
+```bash
+ssh `[nombre de usuario]`@`[direccion IP de nuestra raspberry]`
+```
+
+Si es la primera vez que realizamos este proceso, la consola mostrará un hash que será una forma de seguridad para la conexión SSH. No es necesario que
+nos aprendamos esta información, solo es necesario escribir la letra **y/yes** y luego **Enter**. De esta forma estamos dando permiso a nuestra
+computadora para acceder de forma remota a la terminal de la Raspberry Pi.
+
+Después de unos instantes, si todo ha salido bien nos pedirá la contraseña para iniciar sesión. Y una vez aceptada la contraseña veremos que en
+nuestra Terminal ha cambiado ha algo como esto:
+
+```bash
+`[nombre de usuario]`@`[direccion IP de nuestra raspberry]`$ /
+```
+
+#### 🎉 Felicidades ya has podido instalar el sistema operativo e inciado sesión desde otra computadora 🎉
+
+Hemos llegado casi al final, solo resta actualizar los paquetes y tener nuestro sistema operativo con la últimas actualizaciones, lo mas
+probable es que ya conozcas el comando, pero de igual forma lo dejamos acá abajo. Recuerda ques estamos usando Ubuntu y puede cambiar el gestor de
+paquetes de acuerdo a cada sistema operativo.
+
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+Escribir la constraseña una vez sea solicitada en la terminal y esperar unos minutos a que sea completado el proceso de actualización.
+
+Eso sería todo, mencioné al principio que escribiríamos algunos comandos, pues ya lo hemos hecho durante el proceso de inicio de sesión y con la
+actualización de los paquetes y librerías dentro de nuestro sistema operativo. Te invito a revisar otras guías y tutoriales, sin embargo puede ingresar
+en la siguiente página de
+**<a href="https://www.freecodecamp.org/learn/relational-database/learn-bash-by-building-a-boilerplate/build-a-boilerplate" target="_blank">
+FreeCodeCamp</a>** con un entorno para practicar comandos de Linux directo desde el nevegador.
+
+Sin mas que agregar por hoy.
+
+## Gracias por llegar hasta acá y nos vemos en la próxima...
