@@ -1,8 +1,10 @@
 version: "3.8"
 services:
   nextjs:
+    container_name: website
     build: ./
   nginx:
+    container_name: web-server
     build: ./nginx
     ports:
       - 8080:80
